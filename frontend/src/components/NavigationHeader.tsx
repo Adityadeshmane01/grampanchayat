@@ -16,6 +16,8 @@ interface NavigationHeaderProps {
 
 const content = {
   en: {
+    heading1:"Bramhangaon Vanas",
+    heading2:"Gram Panchayat",
     officers: "Officers",
     villageInfo: "Village Information",
     importantNumbers: "Important Numbers",
@@ -27,6 +29,8 @@ const content = {
     home: "Home",
   },
   mr: {
+    heading1:"ब्राह्मणगाव वनस",
+    heading2:'ग्राम पंचायत',
     officers: "अधिकारी",
     villageInfo: "गाव माहिती",
     importantNumbers: "महत्वाचे नंबर",
@@ -49,8 +53,16 @@ export const NavigationHeader = ({ language, onLanguageChange }: NavigationHeade
         <div className="flex items-center justify-between h-16">
           {/* Logo and Title */}
           <div className="flex items-center space-x-4">
-            <div className="text-xl font-bold text-govt-dark-blue">
-              ग्राम पंचायत | Village Panchayat
+            <div className="text-base font-bold text-govt-dark-blue">
+              <span className="">
+                <span>
+                {t.heading2}
+                </span>
+                <br />
+                <span className='text-xl'>
+                {t.heading1}
+                </span>
+              </span>
             </div>
           </div>
 

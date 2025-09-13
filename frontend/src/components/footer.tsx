@@ -1,5 +1,5 @@
-import { Card } from "@/components/ui/card";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Card } from '@/components/ui/card';
+import { Phone, Mail, MapPin } from 'lucide-react';
 
 interface FooterProps {
   language: string;
@@ -7,20 +7,22 @@ interface FooterProps {
 
 const content = {
   en: {
-    contact: "Contact Information",
-    address: "Village Panchayat Office, Main Road, Village Name, Taluka Maval, District Pune - 410506",
-    phone: "+91 9876543210",
-    email: "info@village.gov.in",
-    rights: "© 2024 Village Panchayat. All rights reserved.",
-    govtIndia: "Government of India",
+    contact: 'Contact Information',
+    address:
+      'Village Panchayat Office, Main Road, Village Name, Taluka Maval, District Pune - 410506',
+    phone: '+91 9876543210',
+    email: 'info@village.gov.in',
+    rights: '© 2024 Village Panchayat. All rights reserved.',
+    govtIndia: 'Government of India',
   },
   mr: {
-    contact: "संपर्क माहिती",
-    address: "ग्राम पंचायत कार्यालय, मुख्य रस्ता, गावाचे नाव, तालुका मावळ, जिल्हा पुणे - ४१०५०६",
-    phone: "+91 9876543210", 
-    email: "info@village.gov.in",
-    rights: "© २०२४ ग्राम पंचायत. सर्व हक्क राखीव.",
-    govtIndia: "भारत सरकार",
+    contact: 'संपर्क माहिती',
+    address:
+      'ग्राम पंचायत कार्यालय, मुख्य रस्ता, गावाचे नाव, तालुका मावळ, जिल्हा पुणे - ४१०५०६',
+    phone: '+91 9876543210',
+    email: 'info@village.gov.in',
+    rights: '© २०२४ ग्राम पंचायत. सर्व हक्क राखीव.',
+    govtIndia: 'भारत सरकार',
   },
 };
 
@@ -50,7 +52,7 @@ export const Footer = ({ language }: FooterProps) => {
               </div>
             </div>
           </div>
-          
+
           <div className="flex flex-col justify-between">
             <div className="text-center md:text-right">
               <div className="text-lg font-semibold text-govt-light-orange mb-2">
@@ -60,7 +62,7 @@ export const Footer = ({ language }: FooterProps) => {
                 <div className="w-16 h-12 bg-gradient-to-r from-orange-500 via-white to-green-500 rounded border-2 border-white"></div>
               </div>
             </div>
-            
+
             <div className="text-center md:text-right text-sm text-gray-300">
               {t.rights}
             </div>
