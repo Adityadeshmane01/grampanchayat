@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LanguageToggle } from "./LanguageToggle";
+import { useNavigate } from "react-router-dom";
 
 interface NavigationHeaderProps {
   language: string;
@@ -46,15 +47,17 @@ const content = {
 export const NavigationHeader = ({ language, onLanguageChange }: NavigationHeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const t = content[language as keyof typeof content];
-
+  const navigate =useNavigate();
   return (
     <header className="bg-white shadow-md border-b border-govt-orange/20">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo and Title */}
           <div className="flex items-center space-x-4">
-            <div className="text-base font-bold text-govt-dark-blue">
-              <span className="">
+            <div className="text-base font-bold text-govt-dark-blue cursor-pointer">
+              <span  onClick={()=>{
+                  navigate('/');
+                }} className="">
                 <span>
                 {t.heading2}
                 </span>
@@ -83,32 +86,22 @@ export const NavigationHeader = ({ language, onLanguageChange }: NavigationHeade
             </DropdownMenu>
 
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="flex items-center gap-1 text-govt-dark-blue hover:text-govt-orange">
+              
+                <Button variant="ghost" onClick={()=>{
+                  navigate('/villageinfo')
+                }}className="flex items-center gap-1 text-govt-dark-blue hover:text-govt-orange">
                   {t.villageInfo}
-                  <ChevronDown className="h-4 w-4" />
+                 
                 </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-white border border-govt-orange/20">
-                <DropdownMenuItem>Population</DropdownMenuItem>
-                <DropdownMenuItem>Demographics</DropdownMenuItem>
-                <DropdownMenuItem>Infrastructure</DropdownMenuItem>
-              </DropdownMenuContent>
+
+             
             </DropdownMenu>
 
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="flex items-center gap-1 text-govt-dark-blue hover:text-govt-orange">
                   {t.importantNumbers}
-                  <ChevronDown className="h-4 w-4" />
+                 
                 </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-white border border-govt-orange/20">
-                <DropdownMenuItem>Emergency: 112</DropdownMenuItem>
-                <DropdownMenuItem>Police: 100</DropdownMenuItem>
-                <DropdownMenuItem>Fire: 101</DropdownMenuItem>
-                <DropdownMenuItem>Ambulance: 108</DropdownMenuItem>
-              </DropdownMenuContent>
             </DropdownMenu>
 
             <DropdownMenu>

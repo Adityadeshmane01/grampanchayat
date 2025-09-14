@@ -7,10 +7,14 @@ import { AnnouncementsSection } from '@/components/AnnouncementsSection';
 import { AboutVillage } from '@/components/AboutVillage';
 import { ImportantLinks } from '@/components/ImportantLinks';
 import { VillageGallery } from '@/components/VillageGallery';
-import { Footer } from '@/components/Footer';
+import { Footer } from '@/components/footer';
 
-const Index = () => {
-  const [language, setLanguage] = useState('en');
+interface LanguageProps{
+  language:string;
+  setLanguage:(s:'en'|'mr')=>void;
+}
+const Index = ({language,setLanguage}:LanguageProps) => {
+  
 
   return (
     <div className="min-h-screen bg-background">
