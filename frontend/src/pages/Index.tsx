@@ -7,7 +7,7 @@ import { AnnouncementsSection } from '@/components/AnnouncementsSection';
 import { AboutVillage } from '@/components/AboutVillage';
 import { ImportantLinks } from '@/components/ImportantLinks';
 import { VillageGallery } from '@/components/VillageGallery';
-import { Footer } from '@/components/footer';
+import { Footer } from '@/components/Footer';
 
 interface LanguageProps{
   language:string;
@@ -19,7 +19,7 @@ const Index = ({language,setLanguage}:LanguageProps) => {
   return (
     <div className="min-h-screen bg-background">
       <NavigationHeader language={language} onLanguageChange={setLanguage} />
-
++
       <main>
         {/* Hero Carousel */}
         <section className="container mx-auto px-4 py-8">

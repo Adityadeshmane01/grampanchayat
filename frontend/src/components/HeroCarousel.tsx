@@ -1,20 +1,40 @@
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, School, School2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+import school2Img from "../assets/images/school2.webp";
+import grampanchayatImg from "../assets/images/grampanchayat.webp";
+import mandirImg from "../assets/images/mandir.webp";
+import SchoolImg from "../assets/images/School.webp";
+
+
 const images = [
-  {
-    src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-    alt: 'Village Landscape',
+   {
+    src: grampanchayatImg,
+    alt: "Grampanchayat Building",
   },
+  
   {
-    src: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-    alt: 'Government Building',
+    src: SchoolImg ,
+    alt: "ZP School",
   },
+ 
   {
-    src: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80',
-    alt: 'Community Gathering',
+    src: school2Img,
+    alt: "School",
   },
+  // {
+  //   src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+  //   alt: 'Village Landscape',
+  // },
+  // {
+  //   src: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+  //   alt: 'Government Building',
+  // },
+  // {
+  //   src: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80',
+  //   alt: 'Community Gathering',
+  // },
 ];
 
 export const HeroCarousel = () => {
@@ -51,7 +71,7 @@ export const HeroCarousel = () => {
               alt={image.alt}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-govt-dark-blue/60 to-transparent" />
+          
           </div>
         ))}
       </div>

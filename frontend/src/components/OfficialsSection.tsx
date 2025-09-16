@@ -1,11 +1,8 @@
 import { Card, CardContent } from '@/components/ui/card';
-
-const sarpanchImg =
-  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80';
-const upsarpanchImg =
-  'https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80';
-const secretaryImg =
-  'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80';
+import sarpanchImg from '../assets/images/sarpanch.png';
+import upsarpanchImg from '../assets/images/Upsarpanch.png';
+import secretaryImg from '../assets/images/Adhikari.png';
+import commiteeImg from '../assets/images/commitee.webp';
 
 interface OfficialsSectionProps {
   language: string;
@@ -13,46 +10,55 @@ interface OfficialsSectionProps {
 
 const content = {
   en: {
+   
     title: 'Village Officials',
+     commitee: {
+      name: 'Mrs. Namrata Jagtap',
+      designation: 'Hon. Block Development Officer, Panchayat Samiti Niphad',
+
+      email: 'grampanchayatbramhangaonvanas@gmail.com',
+    },
     sarpanch: {
-      name: 'Shri Rajesh Kumar',
+      name: 'Mrs. Pramila Chaudhari',
       designation: 'Sarpanch',
-      contact: '+91 9876543210',
-      email: 'sarpanch@village.gov.in',
+      email: 'grampanchayatbramhangaonvanas@gmail.com',
     },
     upsarpanch: {
-      name: 'Smt. Priya Sharma',
+      name: 'Mr Narhari Kaapdi',
       designation: 'Upsarpanch',
-      contact: '+91 9876543211',
-      email: 'upsarpanch@village.gov.in',
+      email: 'grampanchayatbramhangaonvanas@gmail.com',
     },
     secretary: {
-      name: 'Shri Amit Patil',
-      designation: 'Village Secretary',
-      contact: '+91 9876543212',
-      email: 'secretary@village.gov.in',
+      name: 'Mrs. Swati Ghotekar',
+      designation: 'Village Panchayat Officer',
+      email: 'grampanchayatbramhangaonvanas@gmail.com',
     },
+    
   },
   mr: {
+    
     title: 'गाव अधिकारी',
+      commitee: {
+      name: 'श्रीमती नम्रता जगताप',
+      designation: 'मा. गट विकास अधिकारी पंचायत समिती निफाड',
+      email: 'grampanchayatbramhangaonvanas@gmail.com',
+    },
     sarpanch: {
-      name: 'श्री राजेश कुमार',
+      name: 'श्रीमती प्रमिला चौधरी',
       designation: 'सरपंच',
-      contact: '+91 9876543210',
-      email: 'sarpanch@village.gov.in',
+      email: 'grampanchayatbramhangaonvanas@gmail.com',
     },
     upsarpanch: {
-      name: 'श्रीमती प्रिया शर्मा',
+      name: 'श्री नरहरी कापडी',
       designation: 'उपसरपंच',
-      contact: '+91 9876543211',
-      email: 'upsarpanch@village.gov.in',
+      email: 'grampanchayatbramhangaonvanas@gmail.com',
     },
     secretary: {
-      name: 'श्री अमित पाटील',
-      designation: 'गाव सचिव',
-      contact: '+91 9876543212',
-      email: 'secretary@village.gov.in',
+      name: 'श्रीमती स्वाती घोटेकर',
+      designation: 'ग्रामपंचायत अधीकारी',
+      email: 'grampanchayatbramhangaonvanas@gmail.com',
     },
+  
   },
 };
 
@@ -63,6 +69,7 @@ export const OfficialsSection = ({ language }: OfficialsSectionProps) => {
     { ...t.sarpanch, image: sarpanchImg },
     { ...t.upsarpanch, image: upsarpanchImg },
     { ...t.secretary, image: secretaryImg },
+    { ...t.commitee, image: commiteeImg },
   ];
 
   return (
@@ -92,7 +99,7 @@ export const OfficialsSection = ({ language }: OfficialsSectionProps) => {
                   {official.designation}
                 </p>
                 <div className="space-y-1 text-sm text-muted-foreground">
-                  <p>{official.contact}</p>
+                 
                   <p>{official.email}</p>
                 </div>
               </CardContent>

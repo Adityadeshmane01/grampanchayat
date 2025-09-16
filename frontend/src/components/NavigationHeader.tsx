@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LanguageToggle } from "./LanguageToggle";
 import { useNavigate } from "react-router-dom";
+import ashokaImg from "../assets/images/ashoka.png";
 
 interface NavigationHeaderProps {
   language: string;
@@ -54,6 +55,13 @@ export const NavigationHeader = ({ language, onLanguageChange }: NavigationHeade
         <div className="flex items-center justify-between h-16">
           {/* Logo and Title */}
           <div className="flex items-center space-x-4">
+            {/* Logo Image */}
+            <img
+              src={ashokaImg}
+              alt="Ashoka Pillar"
+              className="h-20 w-auto object-contain" // h-20 = 5rem, slightly larger than before
+              style={{ maxHeight: '4.6rem' }}
+            />
             <div className="text-base font-bold text-govt-dark-blue cursor-pointer">
               <span  onClick={()=>{
                   navigate('/');
@@ -72,17 +80,14 @@ export const NavigationHeader = ({ language, onLanguageChange }: NavigationHeade
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="flex items-center gap-1 text-govt-dark-blue hover:text-govt-orange">
+            
+                <Button onClick={()=>{
+                  navigate('/officers')
+                }} variant="ghost" className="flex items-center gap-1 text-govt-dark-blue hover:text-govt-orange">
                   {t.officers}
-                  <ChevronDown className="h-4 w-4" />
                 </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-white border border-govt-orange/20">
-                <DropdownMenuItem>Sarpanch</DropdownMenuItem>
-                <DropdownMenuItem>Upsarpanch</DropdownMenuItem>
-                <DropdownMenuItem>Secretary</DropdownMenuItem>
-              </DropdownMenuContent>
+       
+             
             </DropdownMenu>
 
             <DropdownMenu>
@@ -98,10 +103,9 @@ export const NavigationHeader = ({ language, onLanguageChange }: NavigationHeade
             </DropdownMenu>
 
             <DropdownMenu>
-                <Button variant="ghost" className="flex items-center gap-1 text-govt-dark-blue hover:text-govt-orange">
-                  {t.importantNumbers}
-                 
-                </Button>
+                  <Button variant="ghost" className="flex items-center gap-1 text-govt-dark-blue hover:text-govt-orange" onClick={() => navigate('/importantnumbers')}>
+                    {t.importantNumbers}
+                  </Button>
             </DropdownMenu>
 
             <DropdownMenu>
@@ -112,10 +116,10 @@ export const NavigationHeader = ({ language, onLanguageChange }: NavigationHeade
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-white border border-govt-orange/20">
-                <DropdownMenuItem>{t.jalJivan}</DropdownMenuItem>
-                <DropdownMenuItem>{t.ayog15}</DropdownMenuItem>
-                <DropdownMenuItem>{t.pmAwas}</DropdownMenuItem>
-                <DropdownMenuItem>{t.mgnrega}</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => window.open("https://jaljeevanmission.gov.in/")}>{t.jalJivan}</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => window.open("https://doe.gov.in/15th-finance-commission")}>{t.ayog15}</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => window.open("https://rdd.maharashtra.gov.in/en/scheme/pradhan-mantri-awas-yojana-rural/")}>{t.pmAwas}</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => window.open("https://nrega.dord.gov.in/MGNREGA_new/Nrega_home.aspx")}>{t.mgnrega}</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
@@ -140,18 +144,37 @@ export const NavigationHeader = ({ language, onLanguageChange }: NavigationHeade
         {isMenuOpen && (
           <div className="md:hidden border-t border-govt-orange/20 py-4">
             <nav className="space-y-2">
-              <Button variant="ghost" className="w-full justify-start text-govt-dark-blue">
+              <Button variant="ghost" onClick={()=>{
+                  navigate('/officers')
+                }} className="w-full justify-start text-govt-dark-blue">
                 {t.officers}
               </Button>
-              <Button variant="ghost" className="w-full justify-start text-govt-dark-blue">
+              <Button onClick={()=>{
+                  navigate('/villageinfo')
+                }} variant="ghost" className="w-full justify-start text-govt-dark-blue">
                 {t.villageInfo}
               </Button>
-              <Button variant="ghost" className="w-full justify-start text-govt-dark-blue">
+              <Button variant="ghost" onClick={()=>{
+                  navigate('/villageinfo')
+                }} className="w-full justify-start text-govt-dark-blue">
                 {t.importantNumbers}
               </Button>
+              
+               <DropdownMenu>
+              <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="w-full justify-start text-govt-dark-blue">
                 {t.govtSchemes}
               </Button>
+              </DropdownMenuTrigger>
+               <DropdownMenuContent className="bg-white border border-govt-orange/20">
+                <DropdownMenuItem onClick={() => window.open("https://jaljeevanmission.gov.in/")}>{t.jalJivan}</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => window.open("https://doe.gov.in/15th-finance-commission")}>{t.ayog15}</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => window.open("https://rdd.maharashtra.gov.in/en/scheme/pradhan-mantri-awas-yojana-rural/")}>{t.pmAwas}</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => window.open("https://nrega.dord.gov.in/MGNREGA_new/Nrega_home.aspx")}>{t.mgnrega}</DropdownMenuItem>
+              </DropdownMenuContent>
+
+          </DropdownMenu>
+
             </nav>
           </div>
         )}

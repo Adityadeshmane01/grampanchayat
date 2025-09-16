@@ -14,9 +14,9 @@ const content = {
     literacyRate: "Literacy Rate",
     healthCenters: "Health Centers",
     stats: {
-      population: "2,847",
-      households: "534",
-      literacy: "78.5%",
+      population: "1,464",
+      households: "279",
+      literacy: "83.23%",
       health: "3",
     }
   },
@@ -28,9 +28,9 @@ const content = {
     literacyRate: "साक्षरता दर",
     healthCenters: "आरोग्य केंद्रे",
     stats: {
-      population: "२,८४७",
-      households: "५३४",
-      literacy: "७८.५%",
+      population: "१,४६४",
+      households: "२७९",
+      literacy: "८३.२३%",
       health: "३",
     }
   },
