@@ -1,5 +1,5 @@
 import { Card, CardContent } from '@/components/ui/card';
-import sarpanchImg from '../assets/images/sarpanch.png';
+import sarpanchImg from '../assets/images/Sarpanch.png';
 import upsarpanchImg from '../assets/images/Upsarpanch.png';
 import secretaryImg from '../assets/images/Adhikari.png';
 import commiteeImg from '../assets/images/commitee.webp';
