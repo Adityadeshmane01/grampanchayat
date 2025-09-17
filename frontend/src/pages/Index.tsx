@@ -20,7 +20,7 @@ const Index = ({language,setLanguage}:LanguageProps) => {
   return (
     <div className="min-h-screen bg-background">
       <NavigationHeader language={language} onLanguageChange={setLanguage} />
-+
+
       <main>
         {/* Hero Carousel */}
         <section className="container mx-auto px-4 py-8">

@@ -239,19 +239,17 @@ const Gallery: React.FC<VillageGalleryProps> = ({ language = 'en' }) => {
   // Mobile grid layout - 5 sections
   const mobileGridItems = useMemo<GridItem[]>(
     () => [
-      { gridArea: '1 / 1 / 2 / 3', index: 0 },
+      { gridArea: '1 / 1 / 2 / 3', index: 0 }, // Spans 2 columns
       { gridArea: '2 / 1 / 3 / 2', index: 1 },
       { gridArea: '2 / 2 / 3 / 3', index: 2 },
       { gridArea: '3 / 1 / 4 / 2', index: 3 },
       { gridArea: '3 / 2 / 4 / 3', index: 4 },
-      { gridArea: '4 / 1 / 5 / 2', index: 5 }, // new row for image 6
-      { gridArea: '4 / 2 / 5 / 3', index: 6 }, // new row for image 7
-      { gridArea: '5 / 1 / 6 / 2', index: 7 }, // new row for image 8
-      { gridArea: '5 / 2 / 6 / 3', index: 8 }, // new row for image 9
-      // Add more as needed
+      { gridArea: '4/1/5/2',index: 5},
+       { gridArea: '4 / 2 / 4 / 3', index: 6 },
     ],
     []
   );
+
 
   // Desktop grid layout - 8 sections (3x3 grid with some spanning)
   const desktopGridItems = useMemo<GridItem[]>(
