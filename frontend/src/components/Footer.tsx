@@ -1,5 +1,6 @@
 import { Card } from '@/components/ui/card';
 import { Phone, Mail, MapPin } from 'lucide-react';
+import ashokaImg from "../assets/images/ashoka.png";
 
 interface FooterProps {
   language: string;
@@ -25,7 +26,7 @@ const content = {
     govtIndia: 'भारत सरकार',
   },
 };
-
+         
 export const Footer = ({ language }: FooterProps) => {
   const t = content[language as keyof typeof content];
 
@@ -59,7 +60,12 @@ export const Footer = ({ language }: FooterProps) => {
                 {t.govtIndia}
               </div>
               <div className="flex justify-center md:justify-end mb-4">
-                <div className="w-16 h-12 bg-gradient-to-r from-orange-500 via-white to-green-500 rounded border-2 border-white"></div>
+                <img
+                  src={ashokaImg}
+                  alt="Ashoka Pillar"
+                  className="w-32 h-19 object-contain drop-shadow-md"
+                  style={{ filter: "invert(1) brightness(2)" }}
+                />
               </div>
             </div>
 

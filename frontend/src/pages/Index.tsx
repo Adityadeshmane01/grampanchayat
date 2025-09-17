@@ -8,6 +8,7 @@ import { AboutVillage } from '@/components/AboutVillage';
 import { ImportantLinks } from '@/components/ImportantLinks';
 import { VillageGallery } from '@/components/VillageGallery';
 import { Footer } from '@/components/Footer';
+import Gallery from '@/components/Gallery';
 
 interface LanguageProps{
   language:string;
@@ -42,7 +43,7 @@ const Index = ({language,setLanguage}:LanguageProps) => {
         <ImportantLinks language={language} />
 
         {/* Village Gallery */}
-        <VillageGallery language={language} />
+        <Gallery/>
       </main>
 
       <Footer language={language} />

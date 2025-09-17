@@ -51,26 +51,26 @@ export const NavigationHeader = ({ language, onLanguageChange }: NavigationHeade
   const navigate =useNavigate();
   return (
     <header className="bg-white shadow-md border-b border-govt-orange/20">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+      <div className="container pl-0 ">
+        <div className="flex justify-between h-18">
           {/* Logo and Title */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center ">
             {/* Logo Image */}
             <img
               src={ashokaImg}
               alt="Ashoka Pillar"
-              className="h-20 w-auto object-contain" // h-20 = 5rem, slightly larger than before
+              className="h-18 w-auto object-contain" // h-20 = 5rem, slightly larger than before
               style={{ maxHeight: '4.6rem' }}
             />
-            <div className="text-base font-bold text-govt-dark-blue cursor-pointer">
-              <span  onClick={()=>{
+            <div className="text-base my-2 font-bold text-govt-dark-blue cursor-pointer">
+              <span pt-2 onClick={()=>{
                   navigate('/');
                 }} className="">
                 <span>
                 {t.heading2}
                 </span>
                 <br />
-                <span className='text-xl'>
+                <span className=''>
                 {t.heading1}
                 </span>
               </span>
@@ -155,7 +155,7 @@ export const NavigationHeader = ({ language, onLanguageChange }: NavigationHeade
                 {t.villageInfo}
               </Button>
               <Button variant="ghost" onClick={()=>{
-                  navigate('/villageinfo')
+                  navigate('/importantnumbers')
                 }} className="w-full justify-start text-govt-dark-blue">
                 {t.importantNumbers}
               </Button>
