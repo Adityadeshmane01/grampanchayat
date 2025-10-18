@@ -313,7 +313,7 @@ export const AdminPanel = ({ token, onAddImage, onLogout }: { token: string, onA
         )}
       </div>
       <div>
-        <Button onClick={()=>{
+        <Button className="flex justify-center mb-8" onClick={()=>{
           navigate('/')
         }}>
           Back
