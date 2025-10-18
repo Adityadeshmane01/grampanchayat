@@ -34,7 +34,7 @@ export const AdminLogin = ({ onLogin }: { onLogin: (token: string) => void }) =>
           body: JSON.stringify({ username, password }),
         });
         const data = await res.json();
-        
+
         if (data.token) {
           onLogin(data.token);
           return;
@@ -81,7 +81,7 @@ export const AdminLogin = ({ onLogin }: { onLogin: (token: string) => void }) =>
                 disabled={loading}
               />
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <Input
@@ -101,9 +101,9 @@ export const AdminLogin = ({ onLogin }: { onLogin: (token: string) => void }) =>
               </Alert>
             )}
 
-            <Button 
-              type="submit" 
-              className="w-full" 
+            <Button
+              type="submit"
+              className="w-full"
               disabled={loading || !username || !password}
             >
               {loading ? (
@@ -116,17 +116,12 @@ export const AdminLogin = ({ onLogin }: { onLogin: (token: string) => void }) =>
               )}
             </Button>
           </form>
-          
+
           <div className="mt-6 text-center">
-            <p className="text-sm text-gray-500">
-              <strong>Supabase:</strong> admin@village.com / admin123
-            </p>
-            <p className="text-sm text-gray-500">
-              <strong>Backend:</strong> admin / change-me-now
-            </p>
-            <p className="text-xs text-gray-400 mt-2">
-              Frontend: http://localhost:8081 | Backend: http://localhost:4000
-            </p>
+
+
+
+          
           </div>
         </CardContent>
       </Card>
