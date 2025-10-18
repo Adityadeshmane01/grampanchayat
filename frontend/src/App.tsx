@@ -9,35 +9,63 @@ import VillageInfo from "./pages/VillageInfo"
 import { useState } from "react";
 import ImportantNumbers from "./pages/ImportantNumbers";
 import { Officers } from "./pages/Officers";
+import React from 'react';
+import { AdminLogin } from './pages/AdminLogin';
+import { AdminPanel } from './pages/AdminPanel';
+import { VillageGallery } from './components/VillageGallery';
+import FullGallery from './components/Gallery';
+import AllGallery from './components/AllGallery';
 
 const queryClient = new QueryClient();
 
-const App = () => {
-  const [language,setLanguage]=useState('en')
+function App() {
+  const [token, setToken] = useState(localStorage.getItem('jwt') || '');
+  const [galleryImages, setGalleryImages] = useState<string[]>([]);
+  const [language, setLanguage] = useState('en');
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+  const handleLogin = (jwt: string) => {
+    setToken(jwt);
+    localStorage.setItem('jwt', jwt);
+  };
+  
+  const handleLogout = () => {
+    setToken('');
+    localStorage.removeItem('jwt');
+  };
+  
+  const handleAddImage = (img: string) => {
+    setGalleryImages(prev => [...prev, img]);
+    // Trigger gallery refresh
+    setRefreshTrigger(Date.now());
+  };
+
   return (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index language={language} setLanguage={setLanguage}  />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-
-
-          <Route path="/officers" element={
-            <Officers language={language} setLanguage={setLanguage}/>
-          } />
-
-
-          <Route path="/villageinfo" element={<VillageInfo language={language} setLanguage={setLanguage}/>}/>
-           <Route path="/importantnumbers" element={<ImportantNumbers language={language} setLanguage={setLanguage}/>}/>
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-  )
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index language={language} setLanguage={setLanguage} />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/officers" element={<Officers language={language} setLanguage={setLanguage} />} />
+            <Route path="/villageinfo" element={<VillageInfo language={language} setLanguage={setLanguage} />} />
+            <Route path="/importantnumbers" element={<ImportantNumbers language={language} setLanguage={setLanguage} />} />
+            <Route path="/admin" element={
+              !token ? (
+                <AdminLogin onLogin={handleLogin} />
+              ) : (
+                <AdminPanel token={token} onAddImage={handleAddImage} onLogout={handleLogout} />
+              )
+            } />
+            <Route path="/gallery" element={<FullGallery language={language} />} />
+            <Route path="/gallery/all" element={<AllGallery language={language} />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
 };
 
 export default App;

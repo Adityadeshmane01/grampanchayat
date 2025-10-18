@@ -19,6 +19,7 @@ import event1Img from '../assets/images/event1.jpg';
 import event2Img from '../assets/images/event2.jpg';
 import event3Img from '../assets/images/event3.jpg';
 import event4Img from '../assets/images/event4.jpg';
+import { storageHelpers } from '@/lib/supabase-helpers';
 
 // Type definitions
 interface ImageData {
@@ -80,7 +81,9 @@ const LazyImage: React.FC<LazyImageProps> = React.memo(
         <img
           src={src}
           alt={alt}
-          className={`${className} ${imageLoaded ? 'opacity-100' : 'opacity-0 absolute inset-0'}`}
+          className={`${className} ${
+            imageLoaded ? 'opacity-100' : 'opacity-0 absolute inset-0'
+          }`}
           style={{ transition: 'opacity 0.2s ease-in-out' }}
           loading={priority ? 'eager' : 'lazy'}
         />
@@ -179,8 +182,8 @@ const Gallery: React.FC<VillageGalleryProps> = ({ language = 'en' }) => {
 
   const t = content[language as keyof typeof content] || content.en;
 
-  // Memoize static image data - village gallery images (first 8)
-  const imageData = useMemo<ImageData[]>(
+  // Memoize static (local) image data
+  const localImageData = useMemo<ImageData[]>(
     () => [
       {
         id: 1,
@@ -188,53 +191,85 @@ const Gallery: React.FC<VillageGalleryProps> = ({ language = 'en' }) => {
         alt: 'Village Market',
         title: 'GramPanchayat',
       },
-      {
-        id: 2,
-        src: GateImg,
-        alt: 'Traditional Houses',
-        title: 'Main Gate',
-      },
-      {
-        id: 3,
-        src: zpImg,
-        alt: 'Agricultural Fields',
-        title: 'ZP School',
-      },
-      {
-        id: 5,
-        src: templeImg,
-        alt: 'Village Temple',
-        title: 'Hanuman Mandir',
-      },
-     
-      
-      {
-        id: 9,
-        src: event1Img,
-        alt: 'Cultural Heritage',
-        title: 'f',
-      },
-      {
-        id: 10,
-        src: event2Img,
-        alt: 'Cultural Heritage',
-        title: 'f',
-      },
-      {
-        id: 11,
-        src: event3Img,
-        alt: 'Cultural Heritage',
-        title: 'f',
-      },
-      {
-        id: 12,
-        src: event4Img,
-        alt: 'Cultural Heritage',
-        title: 'f',
-      },
+      { id: 2, src: GateImg, alt: 'Traditional Houses', title: 'Main Gate' },
+      { id: 3, src: zpImg, alt: 'Agricultural Fields', title: 'ZP School' },
+      { id: 5, src: templeImg, alt: 'Village Temple', title: 'Hanuman Mandir' },
+      { id: 9, src: event1Img, alt: 'Cultural Heritage', title: 'Event' },
+      { id: 10, src: event2Img, alt: 'Cultural Heritage', title: 'Event' },
+      { id: 11, src: event3Img, alt: 'Cultural Heritage', title: 'Event' },
+      { id: 12, src: event4Img, alt: 'Cultural Heritage', title: 'Event' },
     ],
     []
   );
+
+  // Remote images fetched from Supabase storage
+  const [remoteImages, setRemoteImages] = useState<ImageData[]>([]);
+
+  const fetchRemoteImages = useCallback(async () => {
+    try {
+      const imgs = await storageHelpers.getAllImages();
+      // imgs is an array of { name, url, size, uploadedAt }
+      const mapped: ImageData[] = imgs.map(
+        (f, i) =>
+          ({
+            id: 1000 + i,
+            src: f.url,
+            alt: f.name,
+            title: f.name,
+            // attach uploadedAt if present for sorting
+            ...(f.uploadedAt ? { uploadedAt: f.uploadedAt } : {}),
+          } as any)
+      );
+      setRemoteImages(mapped);
+    } catch (err) {
+      console.error('Failed to fetch remote images for gallery', err);
+    }
+  }, []);
+
+  // Fetch remote images on mount and when a 'gallery-updated' event fires
+  useEffect(() => {
+    fetchRemoteImages();
+
+    const handler = () => fetchRemoteImages();
+    window.addEventListener('gallery-updated', handler);
+
+    // Listen for localStorage changes from other tabs
+    const storageHandler = (e: StorageEvent) => {
+      if (e.key === 'gallery-updated') fetchRemoteImages();
+    };
+    window.addEventListener('storage', storageHandler);
+
+    // Refresh when window gains focus
+    const focusHandler = () => fetchRemoteImages();
+    window.addEventListener('focus', focusHandler);
+
+    // Poll as a fallback every 30s
+    const interval = setInterval(fetchRemoteImages, 30000);
+
+    return () => {
+      window.removeEventListener('gallery-updated', handler);
+      window.removeEventListener('storage', storageHandler);
+      window.removeEventListener('focus', focusHandler);
+      clearInterval(interval);
+    };
+  }, [fetchRemoteImages]);
+
+  // Build combined images list: newest remote images first, then local images
+  const combinedImages = useMemo(() => {
+    // sort remoteImages by uploadedAt descending if available
+    const remoteSorted = [...remoteImages].sort((a, b) => {
+      // uploadedAt may be a string date — compare if present, otherwise keep order
+      const ai = (a as any).uploadedAt
+        ? new Date((a as any).uploadedAt).getTime()
+        : 0;
+      const bi = (b as any).uploadedAt
+        ? new Date((b as any).uploadedAt).getTime()
+        : 0;
+      return bi - ai;
+    });
+    // Prepend remoteSorted so newest remote images appear first
+    return [...remoteSorted, ...localImageData];
+  }, [remoteImages, localImageData]);
 
   // Mobile grid layout - 5 sections
   const mobileGridItems = useMemo<GridItem[]>(
@@ -244,29 +279,28 @@ const Gallery: React.FC<VillageGalleryProps> = ({ language = 'en' }) => {
       { gridArea: '2 / 2 / 3 / 3', index: 2 },
       { gridArea: '3 / 1 / 4 / 2', index: 3 },
       { gridArea: '3 / 2 / 4 / 3', index: 4 },
-      { gridArea: '4/1/5/2',index: 5},
-       { gridArea: '4 / 2 / 4 / 3', index: 6 },
+      { gridArea: '4/1/5/2', index: 5 },
+      { gridArea: '4 / 2 / 4 / 3', index: 6 },
+      { gridArea: '4 / 2 / 4 / 3', index: 7 },
     ],
     []
   );
 
-
   // Desktop grid layout - 8 sections (3x3 grid with some spanning)
   const desktopGridItems = useMemo<GridItem[]>(
     () => [
-      // Row 1
-      { gridArea: '1 / 1 / 3 / 3', index: 0 }, // Large image spanning 2x2
+      // Top-left hero spanning 2 rows x 2 cols
+      { gridArea: '1 / 1 / 3 /3 ', index: 0 }, // Large image (2x2)
+      // Top row - two small images to the right of the hero
       { gridArea: '1 / 3 / 2 / 4', index: 1 },
       { gridArea: '1 / 4 / 2 / 5', index: 2 },
-      // Row 2
+      // Middle row - two small images stacked under the top-right images
       { gridArea: '2 / 3 / 3 / 4', index: 3 },
       { gridArea: '2 / 4 / 3 / 5', index: 4 },
-      // Row 3
-      { gridArea: '3 / 1 / 4 / 2', index: 5 },
-      { gridArea: '3 / 2 / 4 / 3', index: 6 },
-      { gridArea: '3 / 3 / 4 / 4', index: 7 },
-      { gridArea: '3 / 4 / 4 / 5', index: 8 }, // new column for image 9
-      // Add more as needed
+      // Bottom row - three items: left item spans two columns, then two small items
+      { gridArea: '3 / 1 / 4 / 3', index: 5 }, // spans cols 1-2
+      { gridArea: '3 / 3 / 4 / 4', index: 6 },
+      { gridArea: '3 / 4 / 4 / 5', index: 7 },
     ],
     []
   );
@@ -320,16 +354,16 @@ const Gallery: React.FC<VillageGalleryProps> = ({ language = 'en' }) => {
 
         {/* Mobile Layout - 5 sections - FIXED */}
         <div className="block md:hidden overflow-hidden">
-          <div className="grid grid-cols-2 grid-rows-3 gap-3 h-[500px] w-full relative opacity-0 animate-fade-in-scale transition-all duration-400 ease-out overflow-hidden">
+          <div className="grid grid-cols-2 grid-rows-4 gap-3 h-[800px] w-full relative opacity-0 animate-fade-in-scale transition-all duration-400 ease-out overflow-hidden">
             {mobileGridItems.map((item, idx) => (
               <GalleryItem
                 key={`mobile-gallery-${item.index}-${idx}`}
                 item={item}
                 idx={idx}
-                image={imageData[item.index]}
+                image={combinedImages[item.index]}
                 observer={observerRef.current}
                 isVisible={visibleImages.has(item.index)}
-                onClick={() => setFullscreenImage(imageData[item.index])}
+                onClick={() => setFullscreenImage(combinedImages[item.index])}
               />
             ))}
           </div>
@@ -337,16 +371,16 @@ const Gallery: React.FC<VillageGalleryProps> = ({ language = 'en' }) => {
 
         {/* Desktop Layout - 8 sections */}
         <div className="hidden md:block">
-          <div className="grid grid-cols-4 grid-rows-3 gap-4 h-[500px] w-full relative opacity-0 animate-fade-in-scale transition-all duration-400 ease-out">
+          <div className=" grid grid-cols-4 grid-rows-3 gap-4 h-[600px] w-full relative opacity-0 animate-fade-in-scale transition-all duration-400 ease-out ">
             {desktopGridItems.map((item, idx) => (
               <GalleryItem
                 key={`desktop-gallery-${item.index}-${idx}`}
                 item={item}
                 idx={idx}
-                image={imageData[item.index]}
+                image={combinedImages[item.index]}
                 observer={observerRef.current}
                 isVisible={visibleImages.has(item.index)}
-                onClick={() => setFullscreenImage(imageData[item.index])}
+                onClick={() => setFullscreenImage(combinedImages[item.index])}
               />
             ))}
           </div>
@@ -357,6 +391,14 @@ const Gallery: React.FC<VillageGalleryProps> = ({ language = 'en' }) => {
             <span className="block md:hidden">{t.mobileInstruction}</span>
             <span className="hidden md:block">{t.instruction}</span>
           </p>
+          <div className="mt-6">
+            <a
+              href="/gallery/all"
+              className="inline-block px-4 py-2 bg-govt-orange text-white rounded hover:bg-govt-orange/90"
+            >
+              More images
+            </a>
+          </div>
         </div>
       </div>
 
