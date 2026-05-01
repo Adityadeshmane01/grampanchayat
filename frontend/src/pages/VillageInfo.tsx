@@ -33,6 +33,89 @@ const tableData = {
   ],
 };
 
+const taxTableData = {
+  en: {
+    heading: "Grampanchayat Tax Information",
+    columns: {
+      serialNo: "Serial No.",
+      taxType: "Tax Type",
+      previousYear: "Previous Year (Rs)",
+      currentYear: "Current Year (Rs)",
+      total: "Total (Rs)",
+    },
+    rows: [
+      {
+        serialNo: "01",
+        taxType: "Property Tax",
+        previousYear: "54,942",
+        currentYear: "1,40,745",
+        total: "1,95,683",
+      },
+      {
+        serialNo: "02",
+        taxType: "Sanitation/Cleaning Tax",
+        previousYear: "70",
+        currentYear: "565",
+        total: "635",
+      },
+      {
+        serialNo: "03",
+        taxType: "Street Lighting Tax",
+        previousYear: "70",
+        currentYear: "565",
+        total: "635",
+      },
+      {
+        serialNo: "",
+        taxType: "TOTAL:",
+        previousYear: "55,082",
+        currentYear: "1,41,875",
+        total: "1,96,953",
+      },
+    ],
+  },
+  mr: {
+    heading: "ग्रामपंचायत कर माहिती",
+    columns: {
+      serialNo: "अ.नं.",
+      taxType: "कराचा प्रकार",
+      previousYear: "मागील",
+      currentYear: "चालू",
+      total: "एकूण",
+    },
+    rows: [
+      {
+        serialNo: "०१",
+        taxType: "घरपट्टी",
+        previousYear: "५४९४२",
+        currentYear: "१४०७४५",
+        total: "१९५६९३",
+      },
+      {
+        serialNo: "०२",
+        taxType: "सफाईपट्टी",
+        previousYear: "७०",
+        currentYear: "५६५",
+        total: "६३५",
+      },
+      {
+        serialNo: "०३",
+        taxType: "दिवाबत्ती",
+        previousYear: "७०",
+        currentYear: "५६५",
+        total: "६३५",
+      },
+      {
+        serialNo: "",
+        taxType: "एकूण",
+        previousYear: "५५०८२",
+        currentYear: "१४२३३५",
+        total: "१९६८२३",
+      },
+    ],
+  },
+};
+
 interface LanguageProps {
   language: string;
   setLanguage: (s: "en" | "mr") => void;
@@ -40,6 +123,7 @@ interface LanguageProps {
 
 export default function VillageInfo({ language, setLanguage }: LanguageProps) {
   const t = tableData[language as keyof typeof tableData];
+  const taxT = taxTableData[language as keyof typeof taxTableData];
 
   return (
     <>
@@ -98,6 +182,48 @@ export default function VillageInfo({ language, setLanguage }: LanguageProps) {
                   <td className="py-2 px-4">{row.total}</td>
                   <td className="py-2 px-4">{row.male}</td>
                   <td className="py-2 px-4">{row.female}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <h2 className="text-xl font-semibold text-blue-900 mt-10 mb-4">
+          {taxT.heading}
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white rounded-lg shadow border border-blue-100">
+            <thead>
+              <tr className="bg-green-600 text-white">
+                <th className="py-3 px-4 text-left rounded-tl-lg">
+                  {taxT.columns.serialNo}
+                </th>
+                <th className="py-3 px-4 text-left">{taxT.columns.taxType}</th>
+                <th className="py-3 px-4 text-left">
+                  {taxT.columns.previousYear}
+                </th>
+                <th className="py-3 px-4 text-left">
+                  {taxT.columns.currentYear}
+                </th>
+                <th className="py-3 px-4 text-left rounded-tr-lg">
+                  {taxT.columns.total}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {taxT.rows.map((row, idx) => (
+                <tr
+                  key={`${row.taxType}-${idx}`}
+                  className={idx % 2 === 0 ? "bg-blue-50" : "bg-white"}
+                >
+                  <td className="py-2 px-4 font-medium text-gray-700">
+                    {row.serialNo}
+                  </td>
+                  <td className="py-2 px-4 font-medium text-gray-700">
+                    {row.taxType}
+                  </td>
+                  <td className="py-2 px-4 font-semibold">{row.previousYear}</td>
+                  <td className="py-2 px-4 font-semibold">{row.currentYear}</td>
+                  <td className="py-2 px-4 font-semibold">{row.total}</td>
                 </tr>
               ))}
             </tbody>
