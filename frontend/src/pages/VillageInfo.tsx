@@ -271,6 +271,85 @@ const graminidhiBudgetTableData = {
   ],
 };
 
+const wordDocPath = "/wordfile/माहिती अधिकार  १ ते १७ मुद्दे माहिती (1).html";
+
+function WordDocViewer() {
+  const [htmlContent, setHtmlContent] = React.useState<string>("");
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const loadDocument = async () => {
+      try {
+        const response = await fetch(encodeURI(wordDocPath));
+        if (!response.ok) {
+          throw new Error(`Failed to fetch document: ${response.statusText}`);
+        }
+
+        const text = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, "text/html");
+
+        doc.querySelectorAll("style, meta, link").forEach((node) => node.remove());
+        doc.querySelectorAll("[class],[style],[lang],[align],[width],[border],[cellspacing],[cellpadding]").forEach((node) => {
+          node.removeAttribute("class");
+          node.removeAttribute("style");
+          node.removeAttribute("lang");
+          node.removeAttribute("align");
+          node.removeAttribute("width");
+          node.removeAttribute("border");
+          node.removeAttribute("cellspacing");
+          node.removeAttribute("cellpadding");
+        });
+
+        doc.querySelectorAll("img").forEach((img) => {
+          const src = img.getAttribute("src") || "";
+          if (src) {
+            const absoluteUrl = new URL(src, window.location.origin + wordDocPath).href;
+            img.setAttribute("src", absoluteUrl);
+            img.style.maxWidth = "100%";
+            img.style.height = "auto";
+          }
+        });
+
+        setHtmlContent(doc.body.innerHTML);
+      } catch (fetchError) {
+        console.error(fetchError);
+        setError("Unable to load the information document.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadDocument();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="mt-10 rounded-lg border border-blue-100 bg-white p-6 shadow-sm">
+        Loading information document...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="mt-10 rounded-lg border border-red-200 bg-red-50 p-6 text-red-700">
+        {error}
+      </div>
+    );
+  }
+
+  return (
+    <section className="mt-10">
+      <h2 className="text-xl font-semibold text-blue-900 mb-4">सूचना अधिकार दस्तऐवज</h2>
+      <div className="overflow-x-auto rounded-lg border border-blue-100 bg-white p-6 shadow-sm">
+        <div className="word-doc-content" dangerouslySetInnerHTML={{ __html: htmlContent }} />
+      </div>
+    </section>
+  );
+}
+
 interface LanguageProps {
   language: string;
   setLanguage: (s: "en" | "mr") => void;
@@ -533,6 +612,7 @@ export default function VillageInfo({ language, setLanguage }: LanguageProps) {
             </tfoot>
           </table>
         </div>
+        <WordDocViewer />
       </div>
     </>
   );

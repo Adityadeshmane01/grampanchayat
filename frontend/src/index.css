@@ -134,3 +134,36 @@ All colors MUST be HSL for proper theming.
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .word-doc-content {
+    color: rgb(30 41 59);
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    line-height: 1.75;
+  }
+
+  .word-doc-content table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .word-doc-content th,
+  .word-doc-content td {
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    padding: 0.75rem;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .word-doc-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0.75rem 0;
+  }
+
+  .word-doc-content p,
+  .word-doc-content li {
+    margin: 0.5rem 0;
+  }
+}
