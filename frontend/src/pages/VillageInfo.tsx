@@ -116,6 +116,84 @@ const taxTableData = {
   },
 };
 
+const serviceTableData = {
+  heading: "लोकसेवा हक्क अधिनियम - सेवा माहिती",
+  columns: {
+    serialNo: "अ. क्र.",
+    serviceName: "लोकसेवेचे नाव",
+    duration: "कालावधी",
+    fee: "सेवा फी (रु.)",
+    appointedOfficer: "पुनर्नियुक्त अधिकारी",
+    firstAppellate: "प्रथम अपीलिय अधिकारी",
+    secondAppellate: "द्वितीय अपीलिय अधिकारी",
+  },
+  rows: [
+    {
+      serialNo: "1",
+      serviceName: "जन्म नोंद दाखला",
+      duration: "7 दिवस",
+      fee: "50/-",
+      appointedOfficer: "ग्रामपंचायत अधिकारी",
+      firstAppellate: "सहा. गटविकास अधिकारी",
+      secondAppellate: "गटविकास अधिकारी",
+    },
+    {
+      serialNo: "2",
+      serviceName: "मृत्यू नोंद दाखला",
+      duration: "7 दिवस",
+      fee: "50/-",
+      appointedOfficer: "ग्रामपंचayat अधिकारी",
+      firstAppellate: "सहा. गटविकास अधिकारी",
+      secondAppellate: "गटविकास अधिकारी",
+    },
+    {
+      serialNo: "3",
+      serviceName: "विवाह नोंद दाखला",
+      duration: "7 दिवस",
+      fee: "50/-",
+      appointedOfficer: "ग्रामपंचायत अधिकारी",
+      firstAppellate: "सहा. गटविकास अधिकारी",
+      secondAppellate: "गटविकास अधिकारी",
+    },
+    {
+      serialNo: "4",
+      serviceName: "दरिद्री रेखेशी दाखला",
+      duration: "7 दिवस",
+      fee: "नि:शुल्क",
+      appointedOfficer: "ग्रामपंचायत अधिकारी",
+      firstAppellate: "सहा. गटविकास अधिकारी",
+      secondAppellate: "गटविकास अधिकारी",
+    },
+    {
+      serialNo: "5",
+      serviceName: "ग्रामपंचायत घेणे बाकी नसल्याचा दाखला",
+      duration: "5 दिवस",
+      fee: "50/-",
+      appointedOfficer: "ग्रामपंचायत अधिकारी",
+      firstAppellate: "सहा. गटविकास अधिकारी",
+      secondAppellate: "गटविकास अधिकारी",
+    },
+    {
+      serialNo: "6",
+      serviceName: "नमुना ८ चा उतारा",
+      duration: "5 दिवस",
+      fee: "50/-",
+      appointedOfficer: "ग्रामपंचायत अधिकारी",
+      firstAppellate: "सहा. गटविकास अधिकारी",
+      secondAppellate: "गटविकास अधिकारी",
+    },
+    {
+      serialNo: "7",
+      serviceName: "निश्शा असल्याचा दाखला",
+      duration: "20 दिवस",
+      fee: "नि:शुल्क",
+      appointedOfficer: "ग्रामपंचायत अधिकारी",
+      firstAppellate: "सहा. गटविकास अधिकारी",
+      secondAppellate: "गटविकास अधिकारी",
+    },
+  ],
+};
+
 interface LanguageProps {
   language: string;
   setLanguage: (s: "en" | "mr") => void;
@@ -224,6 +302,49 @@ export default function VillageInfo({ language, setLanguage }: LanguageProps) {
                   <td className="py-2 px-4 font-semibold">{row.previousYear}</td>
                   <td className="py-2 px-4 font-semibold">{row.currentYear}</td>
                   <td className="py-2 px-4 font-semibold">{row.total}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <h2 className="text-xl font-semibold text-blue-900 mt-10 mb-4">
+          {serviceTableData.heading}
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white rounded-lg shadow border border-blue-100">
+            <thead>
+              <tr className="bg-green-600 text-white">
+                <th className="py-3 px-4 text-left rounded-tl-lg">
+                  {serviceTableData.columns.serialNo}
+                </th>
+                <th className="py-3 px-4 text-left">{serviceTableData.columns.serviceName}</th>
+                <th className="py-3 px-4 text-left">{serviceTableData.columns.duration}</th>
+                <th className="py-3 px-4 text-left">{serviceTableData.columns.fee}</th>
+                <th className="py-3 px-4 text-left">{serviceTableData.columns.appointedOfficer}</th>
+                <th className="py-3 px-4 text-left">{serviceTableData.columns.firstAppellate}</th>
+                <th className="py-3 px-4 text-left rounded-tr-lg">
+                  {serviceTableData.columns.secondAppellate}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {serviceTableData.rows.map((row, idx) => (
+                <tr
+                  key={`${row.serviceName}-${idx}`}
+                  className={idx % 2 === 0 ? "bg-blue-50" : "bg-white"}
+                >
+                  <td className="py-2 px-4 font-medium text-gray-700">
+                    {row.serialNo}
+                  </td>
+                  <td className="py-2 px-4 font-medium text-gray-700">
+                    {row.serviceName}
+                  </td>
+                  <td className="py-2 px-4">{row.duration}</td>
+                  <td className="py-2 px-4">{row.fee}</td>
+                  <td className="py-2 px-4">{row.appointedOfficer}</td>
+                  <td className="py-2 px-4">{row.firstAppellate}</td>
+                  <td className="py-2 px-4">{row.secondAppellate}</td>
                 </tr>
               ))}
             </tbody>
