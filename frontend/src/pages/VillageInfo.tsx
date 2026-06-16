@@ -194,6 +194,83 @@ const serviceTableData = {
   ],
 };
 
+const waterBudgetTableData = {
+  heading: "पाणीपुरवठा जमा खर्च तेरिज सन 2025/2026",
+  columns: {
+    incomeHead: "जमा बाब",
+    amount: "रक्कम",
+    serialNo: "अ.न.",
+    expenseHead: "खर्च बाब",
+    expenseAmount: "रक्कम",
+  },
+  incomeRows: [
+    { incomeHead: "सामान्य पाणीपट्टी", amount: "800/-" },
+    { incomeHead: "खास पाणीपट्टी", amount: "40700/-" },
+    { incomeHead: "नळ जोडणी फी", amount: "725/-" },
+    { incomeHead: "बँक व्याज", amount: "135/-" },
+    { incomeHead: "गावम्हळी खातेकडून जमा", amount: "12000/-" },
+  ],
+  expenseRows: [
+    { serialNo: "1)", expenseHead: "इलेक्ट्रिक मोटर व्हिजन बिल", expenseAmount: "30386/-" },
+    { serialNo: "2)", expenseHead: "टी.सी.एल. खरेदी", expenseAmount: "1900/-" },
+    { serialNo: "3)", expenseHead: "इलेक्ट्रिक मोटर दुरुस्ती", expenseAmount: "6450/-" },
+    { serialNo: "4)", expenseHead: "कर्मचारी मानधन", expenseAmount: "18000/-" },
+  ],
+  summaryRows: [
+    { leftLabel: "एकूण जमा", leftValue: "54387-00", rightLabel: "एकूण खर्च", rightValue: "56736-00" },
+    { leftLabel: "सूर्तवाची शिल्लक", leftValue: "16895-50", rightLabel: "अकेले शिल्लक", rightValue: "14546-50" },
+    { leftLabel: "एकूण एकंदर", leftValue: "71282-50", rightLabel: "एकूण एकंदर", rightValue: "71282-50" },
+  ],
+};
+
+const graminidhiBudgetTableData = {
+  heading: "जमा खर्च तेरिज सन 2025/2026 ग्रामनिधी",
+  columns: {
+    incomeHead: "जमा बाब",
+    amount: "रक्कम",
+    serialNo: "अ.न.",
+    expenseHead: "खर्च बाब",
+    expenseAmount: "रक्कम",
+  },
+  incomeRows: [
+    { incomeHead: "घरपट्टी", amount: "174459/-" },
+    { incomeHead: "सफाई कर", amount: "865/-" },
+    { incomeHead: "दिवाळी फी", amount: "865/-" },
+    { incomeHead: "जमीन महसूल", amount: "9354/-" },
+    { incomeHead: "बँक व्याज", amount: "579/-" },
+    { incomeHead: "दाखला फी", amount: "220/-" },
+    { incomeHead: "विवाह नोंदणी फी", amount: "1500/-" },
+    { incomeHead: "स्वच्छता फी", amount: "500/-" },
+    { incomeHead: "लोकवाणी", amount: "8694/-" },
+    { incomeHead: "प्लास्टिक बंदी दंड", amount: "200/-" },
+    { incomeHead: "वॉटर फिल्टर भाडे", amount: "20000/-" },
+    { incomeHead: "कर्जाचे वसुली", amount: "700/-" },
+  ],
+  expenseRows: [
+    { serialNo: "1)", expenseHead: "कर्मचारी मानधन", expenseAmount: "36000/-" },
+    { serialNo: "2)", expenseHead: "सार्वजनिक स्वच्छता", expenseAmount: "3500/-" },
+    { serialNo: "3)", expenseHead: "ग्रामपंचायत ISO करून", expenseAmount: "15000/-" },
+    { serialNo: "4)", expenseHead: "सदस्य बैठक भत्ता", expenseAmount: "2400/-" },
+    { serialNo: "5)", expenseHead: "सार्वजनिक आरोग्य", expenseAmount: "6840/-" },
+    { serialNo: "6)", expenseHead: "ऑफिस सप्लाय", expenseAmount: "2050/-" },
+    { serialNo: "7)", expenseHead: "ग्रा.प. कार्यालय वीजन बिल", expenseAmount: "3050/-" },
+    { serialNo: "8)", expenseHead: "ग्रामनिधी वर्गणी", expenseAmount: "409/-" },
+    { serialNo: "9)", expenseHead: "हस्तांतरण वर्गणी", expenseAmount: "2500/-" },
+    { serialNo: "10)", expenseHead: "ग्रामिण पाणीपुरवठा खातेकडे वर्ग", expenseAmount: "1700/-" },
+    { serialNo: "11)", expenseHead: "10% महिला व बालकल्याण", expenseAmount: "15300/-" },
+    { serialNo: "12)", expenseHead: "15% सामाजिक खर्च", expenseAmount: "20340/-" },
+    { serialNo: "13)", expenseHead: "5% दिवाळी खर्च", expenseAmount: "6265/-" },
+    { serialNo: "14)", expenseHead: "डिजिटल सिग्नचर", expenseAmount: "4000/-" },
+    { serialNo: "15)", expenseHead: "ई निविदा जाहिरात", expenseAmount: "5000/-" },
+    { serialNo: "16)", expenseHead: "किरकळ खर्च", expenseAmount: "2000/-" },
+  ],
+  summaryRows: [
+    { leftLabel: "एकूण जमा", leftValue: "2,17,927-00", rightLabel: "एकूण खर्च", rightValue: "136654-00" },
+    { leftLabel: "सूर्तवाची शिल्लक", leftValue: "40,006-50", rightLabel: "अकेले शिल्लक", rightValue: "121279-50" },
+    { leftLabel: "एकूण एकंदर", leftValue: "257933-50", rightLabel: "एकूण एकंदर", rightValue: "157933-50" },
+  ],
+};
+
 interface LanguageProps {
   language: string;
   setLanguage: (s: "en" | "mr") => void;
@@ -202,6 +279,22 @@ interface LanguageProps {
 export default function VillageInfo({ language, setLanguage }: LanguageProps) {
   const t = tableData[language as keyof typeof tableData];
   const taxT = taxTableData[language as keyof typeof taxTableData];
+
+  const waterBudgetRows = Array.from(
+    { length: Math.max(waterBudgetTableData.incomeRows.length, waterBudgetTableData.expenseRows.length) },
+    (_, idx) => ({
+      income: waterBudgetTableData.incomeRows[idx],
+      expense: waterBudgetTableData.expenseRows[idx],
+    })
+  );
+
+  const graminidhiBudgetRows = Array.from(
+    { length: Math.max(graminidhiBudgetTableData.incomeRows.length, graminidhiBudgetTableData.expenseRows.length) },
+    (_, idx) => ({
+      income: graminidhiBudgetTableData.incomeRows[idx],
+      expense: graminidhiBudgetTableData.expenseRows[idx],
+    })
+  );
 
   return (
     <>
@@ -348,6 +441,96 @@ export default function VillageInfo({ language, setLanguage }: LanguageProps) {
                 </tr>
               ))}
             </tbody>
+          </table>
+        </div>
+
+        <h2 className="text-xl font-semibold text-blue-900 mt-10 mb-4">
+          {waterBudgetTableData.heading}
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white rounded-lg shadow border border-blue-100">
+            <thead>
+              <tr className="bg-green-600 text-white">
+                <th className="py-3 px-4 text-left rounded-tl-lg">{waterBudgetTableData.columns.incomeHead}</th>
+                <th className="py-3 px-4 text-left">{waterBudgetTableData.columns.amount}</th>
+                <th className="py-3 px-4 text-left">{waterBudgetTableData.columns.serialNo}</th>
+                <th className="py-3 px-4 text-left">{waterBudgetTableData.columns.expenseHead}</th>
+                <th className="py-3 px-4 text-left rounded-tr-lg">{waterBudgetTableData.columns.expenseAmount}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {waterBudgetRows.map(({ income, expense }, idx) => (
+                <tr
+                  key={`water-row-${idx}`}
+                  className={idx % 2 === 0 ? "bg-blue-50" : "bg-white"}
+                >
+                  <td className="py-2 px-4 font-medium text-gray-700">{income?.incomeHead || ""}</td>
+                  <td className="py-2 px-4">{income?.amount || ""}</td>
+                  <td className="py-2 px-4 text-gray-700 font-medium">{expense?.serialNo || ""}</td>
+                  <td className="py-2 px-4">{expense?.expenseHead || ""}</td>
+                  <td className="py-2 px-4">{expense?.expenseAmount || ""}</td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              {waterBudgetTableData.summaryRows.map((row, idx) => (
+                <tr
+                  key={`water-summary-${idx}`}
+                  className={idx % 2 === 0 ? "bg-blue-50" : "bg-white"}
+                >
+                  <td className="py-2 px-4 font-medium text-gray-700">{row.leftLabel}</td>
+                  <td className="py-2 px-4">{row.leftValue}</td>
+                  <td className="py-2 px-4"></td>
+                  <td className="py-2 px-4 font-medium text-gray-700">{row.rightLabel}</td>
+                  <td className="py-2 px-4">{row.rightValue}</td>
+                </tr>
+              ))}
+            </tfoot>
+          </table>
+        </div>
+
+        <h2 className="text-xl font-semibold text-blue-900 mt-10 mb-4">
+          {graminidhiBudgetTableData.heading}
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white rounded-lg shadow border border-blue-100">
+            <thead>
+              <tr className="bg-green-600 text-white">
+                <th className="py-3 px-4 text-left rounded-tl-lg">{graminidhiBudgetTableData.columns.incomeHead}</th>
+                <th className="py-3 px-4 text-left">{graminidhiBudgetTableData.columns.amount}</th>
+                <th className="py-3 px-4 text-left">{graminidhiBudgetTableData.columns.serialNo}</th>
+                <th className="py-3 px-4 text-left">{graminidhiBudgetTableData.columns.expenseHead}</th>
+                <th className="py-3 px-4 text-left rounded-tr-lg">{graminidhiBudgetTableData.columns.expenseAmount}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {graminidhiBudgetRows.map(({ income, expense }, idx) => (
+                <tr
+                  key={`grami-row-${idx}`}
+                  className={idx % 2 === 0 ? "bg-blue-50" : "bg-white"}
+                >
+                  <td className="py-2 px-4 font-medium text-gray-700">{income?.incomeHead || ""}</td>
+                  <td className="py-2 px-4">{income?.amount || ""}</td>
+                  <td className="py-2 px-4 text-gray-700 font-medium">{expense?.serialNo || ""}</td>
+                  <td className="py-2 px-4">{expense?.expenseHead || ""}</td>
+                  <td className="py-2 px-4">{expense?.expenseAmount || ""}</td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              {graminidhiBudgetTableData.summaryRows.map((row, idx) => (
+                <tr
+                  key={`grami-summary-${idx}`}
+                  className={idx % 2 === 0 ? "bg-blue-50" : "bg-white"}
+                >
+                  <td className="py-2 px-4 font-medium text-gray-700">{row.leftLabel}</td>
+                  <td className="py-2 px-4">{row.leftValue}</td>
+                  <td className="py-2 px-4"></td>
+                  <td className="py-2 px-4 font-medium text-gray-700">{row.rightLabel}</td>
+                  <td className="py-2 px-4">{row.rightValue}</td>
+                </tr>
+              ))}
+            </tfoot>
           </table>
         </div>
       </div>
